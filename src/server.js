@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
+const path = require('path');
 const app = express();
 
 // routes
@@ -21,14 +22,18 @@ mongoose.connect(
 );
 
 // middlewares
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
+app.use('/public', express.static(path.join(__dirname, '/uploads')));
 
+// use routes
 app.use('/api/v1', imageRoutes);
 
 app.get('/', (req, res) => {
   res.status(200).json('Server is working fine!');
 });
+
+
 
 const PORT = process.env.PORT;
 

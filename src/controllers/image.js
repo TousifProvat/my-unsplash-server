@@ -2,30 +2,33 @@ const Image = require('../models/Image');
 
 exports.getAllImages = async (req, res) => {
   try {
-    const Images = await Image.find();
-    if (Images.length > 0) {
-      return res.status(200).json({
+    const Images = await Image.find({});
+    return res.status(200).json({
         Images,
       });
-    } else {
-      return res.status(200).json({ message: 'There is no image' });
-    }
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
 
 exports.uploadImage = async (req, res) => {
-  const { title, link } = req.body;
+  const { title } = req.body;
+  
   try {
-    const newImage = new Image({
-      title: title,
-      imageLink: link,
-    });
+    if(req.file != ''){
+      const {originalname} = req.file;
 
-    const image = await newImage.save();
-
-    res.status(201).json({ image });
+      const newImage = new Image({
+        title: title,
+        imageLink: `http://localhost:5000/public/${originalname.trim()}`,
+      });
+  
+      const image = await newImage.save();
+  
+      res.status(201).json({ image });
+    }else{
+      return res.status(400).json({ message: 'Image is missing!'})
+    }
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

@@ -6,6 +6,6 @@ exports.storage = multer.diskStorage({
     cb(null, path.join(path.dirname(__dirname), '/uploads'));
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname);
+    cb(null, file.originalname.trim());
   },
 });
