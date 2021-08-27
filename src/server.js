@@ -33,8 +33,6 @@ app.get('/', (req, res) => {
   res.status(200).json('Server is working fine!');
 });
 
-
-
 const PORT = process.env.PORT;
 
 app.listen(PORT, () => console.log(`Server on port ${PORT}`));
