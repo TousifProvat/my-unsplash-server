@@ -2,7 +2,7 @@ const Image = require('../models/Image');
 
 exports.getAllImages = async (req, res) => {
   try {
-    const Images = await Image.find({});
+    const Images = await Image.find({}).sort({ createdAt: -1 });
     return res.status(200).json({
       Images,
     });
