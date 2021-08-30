@@ -12,10 +12,6 @@ exports.getAllImages = async (req, res) => {
   }
 };
 
-// const generatePublicUrl = (name) => {
-//   return `${process.env.SERVER_LINK}/public/${name}`;
-// };
-
 const imageTypeValidator = (imgType) => {
   const accepetedTypes = ['image/jpeg', 'image/png', 'image/gif'];
   return accepetedTypes.includes(imgType);
